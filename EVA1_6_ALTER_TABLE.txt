@@ -1,0 +1,211 @@
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+ MySQL  JS > \connect -mc root@localhost:3307
+Creating a Classic session to 'root@localhost:3307'
+Please provide the password for 'root@localhost:3307': ****
+Save password for 'root@localhost:3307'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3307 ssl  JS > sql
+ReferenceError: sql is not defined
+
+ MySQL  localhost:3307 ssl  JS > \sql
+Switching to SQL mode... Commands end with ;
+
+ MySQL  localhost:3307 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.0009 sec)
+
+ MySQL  localhost:3307 ssl  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching table and column names from `sakila` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3307 ssl  sakila  SQL > show tables;
++----------------------------+
+| Tables_in_sakila           |
++----------------------------+
+| actor                      |
+| actor_info                 |
+| address                    |
+| category                   |
+| city                       |
+| country                    |
+| customer                   |
+| customer_list              |
+| film                       |
+| film_actor                 |
+| film_category              |
+| film_list                  |
+| film_text                  |
+| inventory                  |
+| language                   |
+| nicer_but_slower_film_list |
+| payment                    |
+| rental                     |
+| sales_by_film_category     |
+| sales_by_store             |
+| staff                      |
+| staff_list                 |
+| store                      |
++----------------------------+
+23 rows in set (0.0015 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > create table empleados(
+                                      ... id int,
+                                      ... nombre varchar(50),
+                                      ... fecha_nacimiento date,
+                                      ... rfc int,
+                                      ... ciudad_nacimiento text,
+                                      ... estado int,
+                                      ... numero_tel varchar(50));
+Query OK, 0 rows affected (1.8029 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados add column apellido varchar(50);
+Query OK, 0 rows affected (0.6296 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados drop apellido;
+Query OK, 0 rows affected (0.9870 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados add column apellido varchar(50) after nombre;
+Query OK, 0 rows affected (0.6504 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change rfc rfc varchar(13);
+Query OK, 0 rows affected (1.0766 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados add nss varchar(20) after rfc;
+Query OK, 0 rows affected (0.5920 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados add pais text after estado;
+Query OK, 0 rows affected (0.5150 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados rename column numero_tel to celular;
+Query OK, 0 rows affected (0.1500 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados add id_depto int after id;
+Query OK, 0 rows affected (0.7282 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados add tel_fijo varchar(50);
+Query OK, 0 rows affected (0.2363 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change id id key ato_increment;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key ato_increment' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change id id int key ato_increment;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ato_increment' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change id id int key auto_increment;
+Query OK, 0 rows affected (1.4503 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change id_depto id_depto int unique;
+Query OK, 0 rows affected (0.3518 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change nombre nombre varchar(50) not null;
+Query OK, 0 rows affected (0.8573 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change apellido apellido varchar(50) not null;
+Query OK, 0 rows affected (0.5657 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change fecha_nacimiento fecha_nacimiento date not null;
+Query OK, 0 rows affected (0.6897 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change nss nss varchar(20) unique not null;
+Query OK, 0 rows affected (1.5865 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change estado estado varchar(50) enum(CUU,CDMX,BCN,BCS,SON);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'enum(CUU,CDMX,BCN,BCS,SON)' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change estado estado varchar(50) enum('CUU','CDMX','BCN','BCS','SON');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'enum('CUU','CDMX','BCN','BCS','SON')' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change estado estado enum('CUU','CDMX','BCN','BCS','SON');
+Query OK, 0 rows affected (1.3483 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter column pais setdefault 'Mexico';
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column pais setdefault 'Mexico'' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados alter pais set default 'Mexico';
+ERROR: 1101 (42000): BLOB, TEXT, GEOMETRY or JSON column 'pais' can't have a default value
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados change pais pais varchar(50);
+Query OK, 0 rows affected (1.2433 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table empleados alter pais set default 'Mexico';
+Query OK, 0 rows affected (0.3880 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > desc empleados;
++-------------------+--------------------------------------+------+-----+---------+----------------+
+| Field             | Type                                 | Null | Key | Default | Extra          |
++-------------------+--------------------------------------+------+-----+---------+----------------+
+| id                | int(11)                              | NO   | PRI | NULL    | auto_increment |
+| id_depto          | int(11)                              | YES  | UNI | NULL    |                |
+| nombre            | varchar(50)                          | NO   |     | NULL    |                |
+| apellido          | varchar(50)                          | NO   |     | NULL    |                |
+| fecha_nacimiento  | date                                 | NO   |     | NULL    |                |
+| rfc               | varchar(13)                          | YES  |     | NULL    |                |
+| nss               | varchar(20)                          | NO   | UNI | NULL    |                |
+| ciudad_nacimiento | text                                 | YES  |     | NULL    |                |
+| estado            | enum('CUU','CDMX','BCN','BCS','SON') | YES  |     | NULL    |                |
+| pais              | varchar(50)                          | YES  |     | Mexico  |                |
+| celular           | varchar(50)                          | YES  |     | NULL    |                |
+| tel_fijo          | varchar(50)                          | YES  |     | NULL    |                |
++-------------------+--------------------------------------+------+-----+---------+----------------+
+12 rows in set (0.0706 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL >

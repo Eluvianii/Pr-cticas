@@ -1,0 +1,207 @@
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+ MySQL  JS > \connect -mc root@localhost:3307
+Creating a Classic session to 'root@localhost:3307'
+Please provide the password for 'root@localhost:3307': ****
+Save password for 'root@localhost:3307'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3307 ssl  JS > \sql
+Switching to SQL mode... Commands end with ;
+
+ MySQL  localhost:3307 ssl  SQL > create user 'consultas'@'localhost'
+                              ... identified by 'root';
+Query OK, 0 rows affected (1.6222 sec)
+
+ MySQL  localhost:3307 ssl  SQL > desc empleados;
+ERROR: 1046 (3D000): No database selected
+
+ MySQL  localhost:3307 ssl  SQL > use eva_1
+MySQL Error 1049 (42000): ClassicSession.runSql: Unknown database 'eva_1'
+
+ MySQL  localhost:3307 ssl  SQL > show databases
+                              ... ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.0021 sec)
+
+ MySQL  localhost:3307 ssl  SQL > use sakila
+Default schema set to `sakila`.
+Fetching table and column names from `sakila` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3307 ssl  sakila  SQL > desc sakila;
+ERROR: 1146 (42S02): Table 'sakila.sakila' doesn't exist
+
+ MySQL  localhost:3307 ssl  sakila  SQL > show tables;
++----------------------------+
+| Tables_in_sakila           |
++----------------------------+
+| actor                      |
+| actor_info                 |
+| address                    |
+| category                   |
+| city                       |
+| country                    |
+| customer                   |
+| customer_list              |
+| film                       |
+| film_actor                 |
+| film_category              |
+| film_list                  |
+| film_text                  |
+| inventory                  |
+| language                   |
+| nicer_but_slower_film_list |
+| payment                    |
+| rental                     |
+| sales_by_film_category     |
+| sales_by_store             |
+| staff                      |
+| staff_list                 |
+| store                      |
++----------------------------+
+23 rows in set (0.0018 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > grant select on sakila.actor to 'consultas'@'localhost';
+Query OK, 0 rows affected (0.7847 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > grant all on sakila.* to 'consultas'@'localhost'
+                                      ... ;
+Query OK, 0 rows affected (0.2821 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > revoke all on sakila.* to 'consultas'@'localhost';
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 'consultas'@'localhost'' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > revoke all from sakila.* to 'consultas'@'localhost';
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from sakila.* to 'consultas'@'localhost'' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > revoke all on sakila.* from 'consultas'@'localhost';
+Query OK, 0 rows affected (3.3861 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > \connect -mc root@localhost:3307
+Creating a Classic session to 'root@localhost:3307'
+Please provide the password for 'root@localhost:3307': ****
+Save password for 'root@localhost:3307'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching schema names for autocompletion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 9
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3307 ssl  SQL > \connect -mc consultas@localhost:3307
+Creating a Classic session to 'consultas@localhost:3307'
+Please provide the password for 'consultas@localhost:3307': ****
+Save password for 'consultas@localhost:3307'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching schema names for autocompletion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 10
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3307 ssl  SQL > \use sakila
+Default schema set to `sakila`.
+Fetching table and column names from `sakila` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3307 ssl  sakila  SQL > show tables
+                                      ... ;
++------------------+
+| Tables_in_sakila |
++------------------+
+| actor            |
++------------------+
+1 row in set (0.0016 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > create user 'usuario_1'@'localhost' identified by 'root';
+ERROR: 1227 (42000): Access denied; you need (at least one of) the CREATE USER privilege(s) for this operation
+
+ MySQL  localhost:3307 ssl  sakila  SQL > grant all on sakila.* to 'usuario_1'@'localhost';
+ERROR: 1044 (42000): Access denied for user 'consultas'@'localhost' to database 'sakila'
+
+ MySQL  localhost:3307 ssl  sakila  SQL > \connect -mc root@localhost:3307
+Creating a Classic session to 'root@localhost:3307'
+Please provide the password for 'root@localhost:3307': ****
+Save password for 'root@localhost:3307'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching schema names for autocompletion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 11
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3307 ssl  SQL > grant all on sakila.* to 'usuario_1'@'localhost';
+ERROR: 1410 (42000): You are not allowed to create a user with GRANT
+
+ MySQL  localhost:3307 ssl  SQL > create user 'usuario_1'@'localhost' identified by 'root';
+Query OK, 0 rows affected (0.8447 sec)
+
+ MySQL  localhost:3307 ssl  SQL > grant all on sakila.* to 'usuario_1'@'localhost';
+Query OK, 0 rows affected (0.5536 sec)
+
+ MySQL  localhost:3307 ssl  SQL > create user 'actor'@'localhost' identified by 'root';
+Query OK, 0 rows affected (0.1050 sec)
+
+ MySQL  localhost:3307 ssl  SQL > grant select on sakila.datos_Actor to 'actor'@'localhost';
+ERROR: 1146 (42S02): Table 'sakila.datos_Actor' doesn't exist
+
+ MySQL  localhost:3307 ssl  SQL > grant select on sakila.actor_info to 'actor'@'localhost';
+Query OK, 0 rows affected (0.7455 sec)
+
+ MySQL  localhost:3307 ssl  SQL > create user 'captura_actor'@'localhost' identified by 'root';
+Query OK, 0 rows affected (0.6785 sec)
+
+ MySQL  localhost:3307 ssl  SQL > grant insert, update, delete on sakila.actor_info to 'captura_actor'@'localhost';
+Query OK, 0 rows affected (1.4586 sec)
+
+ MySQL  localhost:3307 ssl  SQL > create user 'rec_humanos'@'localhost' identified by 'root';
+Query OK, 0 rows affected (0.5426 sec)
+
+ MySQL  localhost:3307 ssl  SQL > desc staff;
+ERROR: 1046 (3D000): No database selected
+
+ MySQL  localhost:3307 ssl  SQL > use sakila
+Default schema set to `sakila`.
+Fetching table and column names from `sakila` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3307 ssl  sakila  SQL > desc staff
+                                      ... ;
++-------------+----------------------+------+-----+-------------------+-----------------------------+
+| Field       | Type                 | Null | Key | Default           | Extra                       |
++-------------+----------------------+------+-----+-------------------+-----------------------------+
+| staff_id    | tinyint(3) unsigned  | NO   | PRI | NULL              | auto_increment              |
+| first_name  | varchar(45)          | NO   |     | NULL              |                             |
+| last_name   | varchar(45)          | NO   |     | NULL              |                             |
+| address_id  | smallint(5) unsigned | NO   | MUL | NULL              |                             |
+| picture     | blob                 | YES  |     | NULL              |                             |
+| email       | varchar(50)          | YES  |     | NULL              |                             |
+| store_id    | tinyint(3) unsigned  | NO   | MUL | NULL              |                             |
+| active      | tinyint(1)           | NO   |     | 1                 |                             |
+| username    | varchar(16)          | NO   |     | NULL              |                             |
+| password    | varchar(40)          | YES  |     | NULL              |                             |
+| last_update | timestamp            | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++-------------+----------------------+------+-----+-------------------+-----------------------------+
+11 rows in set (0.0032 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > grant select, alter on first_name, last_name to 'rec_humanos'@'localhost';
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', last_name to 'rec_humanos'@'localhost'' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > grant select, alter on staff.first_name, staff.last_name to 'rec_humanos'@'localhost';
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', staff.last_name to 'rec_humanos'@'localhost'' at line 1

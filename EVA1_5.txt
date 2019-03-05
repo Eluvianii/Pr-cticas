@@ -1,0 +1,294 @@
+MySQL Shell 8.0.12
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+ MySQL  JS > \connect -mc root@localhost:3307
+Creating a Classic session to 'root@localhost:3307'
+Please provide the password for 'root@localhost:3307': ****
+Save password for 'root@localhost:3307'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.12 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3307 ssl  JS > sql
+ReferenceError: sql is not defined
+
+ MySQL  localhost:3307 ssl  JS > \sql
+Switching to SQL mode... Commands end with ;
+
+ MySQL  localhost:3307 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.0214 sec)
+
+ MySQL  localhost:3307 ssl  SQL > use sakila
+Default schema set to `sakila`.
+Fetching table and column names from `sakila` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3307 ssl  sakila  SQL > create table paises(
+                                      ... id int,
+                                      ... nombre varchar(50),
+                                      ... continente varchar(50),
+                                      ... poblacion int);
+Query OK, 0 rows affected (2.0248 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > desc paises;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| id         | int(11)     | YES  |     | NULL    |       |
+| nombre     | varchar(50) | YES  |     | NULL    |       |
+| continente | varchar(50) | YES  |     | NULL    |       |
+| poblacion  | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.0205 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises
+                                      ... values(1,'Mexico','America',120000000);
+Query OK, 1 row affected (0.7412 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+--------+------------+-----------+
+| id | nombre | continente | poblacion |
++----+--------+------------+-----------+
+|  1 | Mexico | America    | 120000000 |
++----+--------+------------+-----------+
+1 row in set (0.0005 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises  values(1,'Mexico','America',120000000);
+Query OK, 1 row affected (0.3619 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+--------+------------+-----------+
+| id | nombre | continente | poblacion |
++----+--------+------------+-----------+
+|  1 | Mexico | America    | 120000000 |
+|  1 | Mexico | America    | 120000000 |
++----+--------+------------+-----------+
+2 rows in set (0.0004 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > delete from paises;
+Query OK, 2 rows affected (0.2095 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
+Empty set (0.0005 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises change id id int key auto_increment;
+Query OK, 0 rows affected (2.5836 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > desc paises;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | YES  |     | NULL    |                |
+| continente | varchar(50) | YES  |     | NULL    |                |
+| poblacion  | int(11)     | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0020 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values(1,'Mexico','America',120000000);
+ERROR: 1136 (21S01): Column count doesn't match value count at row 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Mexico','America',120000000);
+Query OK, 1 row affected (0.3785 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > desc paises;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | YES  |     | NULL    |                |
+| continente | varchar(50) | YES  |     | NULL    |                |
+| poblacion  | int(11)     | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0020 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+--------+------------+-----------+
+| id | nombre | continente | poblacion |
++----+--------+------------+-----------+
+|  1 | Mexico | America    | 120000000 |
++----+--------+------------+-----------+
+1 row in set (0.0004 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Mexico','America',120000000);
+Query OK, 1 row affected (0.1475 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Mexico','America',120000000);
+Query OK, 1 row affected (0.0706 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Mexico','America',120000000);
+Query OK, 1 row affected (0.0657 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Mexico','America',120000000);
+Query OK, 1 row affected (0.0663 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Mexico','America',120000000);
+Query OK, 1 row affected (0.0397 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+--------+------------+-----------+
+| id | nombre | continente | poblacion |
++----+--------+------------+-----------+
+|  1 | Mexico | America    | 120000000 |
+|  2 | Mexico | America    | 120000000 |
+|  3 | Mexico | America    | 120000000 |
+|  4 | Mexico | America    | 120000000 |
+|  5 | Mexico | America    | 120000000 |
+|  6 | Mexico | America    | 120000000 |
++----+--------+------------+-----------+
+6 rows in set (0.0004 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > delete from paises where id>1;
+Query OK, 5 rows affected (0.6621 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+--------+------------+-----------+
+| id | nombre | continente | poblacion |
++----+--------+------------+-----------+
+|  1 | Mexico | America    | 120000000 |
++----+--------+------------+-----------+
+1 row in set (0.0004 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > desc paises;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | YES  |     | NULL    |                |
+| continente | varchar(50) | YES  |     | NULL    |                |
+| poblacion  | int(11)     | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.3343 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises
+                                      ... chanche nombre nombre varchar(50) unique;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'chanche nombre nombre varchar(50) unique' at line 2
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises change nombre nombre varchar(50) unique;
+Query OK, 0 rows affected (0.4864 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Mexico','America',120000000);
+ERROR: 1062 (23000): Duplicate entry 'Mexico' for key 'nombre'
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Guatemala','America',1000000);
+Query OK, 1 row affected (0.1346 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+-----------+------------+-----------+
+| id | nombre    | continente | poblacion |
++----+-----------+------------+-----------+
+|  1 | Mexico    | America    | 120000000 |
+|  8 | Guatemala | America    |   1000000 |
++----+-----------+------------+-----------+
+2 rows in set (0.0004 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises change nombre nombre varchar(50) unique not null;
+Query OK, 0 rows affected, 1 warning (1.3589 sec)
+
+Records: 0  Duplicates: 0  Warnings: 1
+Warning (code 1831): Duplicate index 'nombre_2' defined on the table 'sakila.paises'. This is deprecated and will be disallowed in a future release.
+
+ MySQL  localhost:3307 ssl  sakila  SQL > desc paises;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   | UNI | NULL    |                |
+| continente | varchar(50) | YES  |     | NULL    |                |
+| poblacion  | int(11)     | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0020 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+-----------+------------+-----------+
+| id | nombre    | continente | poblacion |
++----+-----------+------------+-----------+
+|  1 | Mexico    | America    | 120000000 |
+|  8 | Guatemala | America    |   1000000 |
++----+-----------+------------+-----------+
+2 rows in set (0.0005 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Canada','America'20000000);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '20000000)' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+-----------+------------+-----------+
+| id | nombre    | continente | poblacion |
++----+-----------+------------+-----------+
+|  1 | Mexico    | America    | 120000000 |
+|  8 | Guatemala | America    |   1000000 |
++----+-----------+------------+-----------+
+2 rows in set (0.0004 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Canada','America,'20000000);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '20000000)' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > insert into paises (nombre,continente,poblacion) values('Canada','America',20000000);
+Query OK, 1 row affected (0.1245 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > select * from paises;
++----+-----------+------------+-----------+
+| id | nombre    | continente | poblacion |
++----+-----------+------------+-----------+
+|  1 | Mexico    | America    | 120000000 |
+|  8 | Guatemala | America    |   1000000 |
+|  9 | Canada    | America    |  20000000 |
++----+-----------+------------+-----------+
+3 rows in set (0.0004 sec)
+
+ MySQL  localhost:3307 ssl  sakila  SQL > update paises
+                                      ... set continente = 'America'
+                                      ... where id = 9;
+Query OK, 0 rows affected (0.0246 sec)
+
+Rows matched: 1  Changed: 0  Warnings: 0
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises
+                                      ... change
+                                      ... continente varchar(50) enum('America','Europa','Oceania','Asia','Afica');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) enum('America','Europa','Oceania','Asia','Afica')' at line 3
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises change continente continente varchar(50) enum('America','Europa','Oceania','Asia','Africa');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'enum('America','Europa','Oceania','Asia','Africa')' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises continente continente varchar(50) enum('America','Europa','Oceania','Asia','Africa');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'continente continente varchar(50) enum('America','Europa','Oceania','Asia','Afri' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises continente continente varchar(50) enum('America','Europa','Oceania','Asia','Africa'));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'continente continente varchar(50) enum('America','Europa','Oceania','Asia','Afri' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises continente continente varchar(50) enum('America','Europa','Oceania','Asia','Africa');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'continente continente varchar(50) enum('America','Europa','Oceania','Asia','Afri' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises change( continente continente varchar(50) enum('America','Europa','Oceania','Asia','Africa'));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '( continente continente varchar(50) enum('America','Europa','Oceania','Asia','Af' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises modify continente continente varchar(50) enum('America','Europa','Oceania','Asia','Africa');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'continente varchar(50) enum('America','Europa','Oceania','Asia','Africa')' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL > alter table paises modify continente varchar(50) enum('America','Europa','Oceania','Asia','Africa');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'enum('America','Europa','Oceania','Asia','Africa')' at line 1
+
+ MySQL  localhost:3307 ssl  sakila  SQL >
